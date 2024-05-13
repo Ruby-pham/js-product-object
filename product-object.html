@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="showList()">List</button>
+<button onclick="showAdd()">Add</button>
+<div id = 'result'></div>
+<script>
+    let listProduct = [
+        {
+            name: 'Ip15',
+            price: 1000+' USD',
+            color: 'pink'
+        },
+        {
+            name: 'S23',
+            price: 700+' USD',
+            color: 'marble grey'
+        },
+        {
+            name: 'Note9',
+            price: 500+' USD',
+            color: 'gold'
+        },
+    ];
+
+    function showList() {
+        let str = `<h1>Danh Sach San Pham</h1>`;
+        str += `<p>So luong san pham : ${listProduct.length}</p>`;
+        // alert(listProduct.name);
+        for (let i = 0; i < listProduct.length; i++) {
+            str += `<h3>${listProduct[i].name}<button onclick="edit(${i})">Edit</button> <button onclick="remove(${i})">Delete</button></h3> `;
+            str+=`Price: ${listProduct[i].price}<br></br> Color : ${listProduct[i].color}`
+        }
+        document.getElementById('result').innerHTML = str;
+    }
+    function showAdd(){
+        let str = `<input id = 'name' placeholder="Name"/>
+                    <input id = 'price' placeholder="Price"/>
+                    <input id = 'color' placeholder="Color"/>
+                    <button onclick="create()">Create</button>`;
+        document.getElementById('result').innerHTML = str;
+    }
+    function create(){
+        let name = document.getElementById('name').value;
+        let price = document.getElementById('price').value;
+        let color = document.getElementById('color').value;
+        listProduct.push({name : name,price: price + ' USD', color: color});
+        showList();
+    }
+    function edit(index){
+        let str = `<input id = 'name' value="${listProduct[index].name}"/>
+                    <input id = 'price' value="${listProduct[index].price}"/>
+                    <input id = 'color' value="${listProduct[index].color}"/>
+                    <button onclick="save(${index})">Save</button>`;
+        document.getElementById('result').innerHTML = str;
+    }
+    function save(index){
+        let name = document.getElementById('name').value;
+        let price = document.getElementById('price').value;
+        let color = document.getElementById('color').value;
+        listProduct[index].name = name;
+        listProduct[index].price = price + ' USD';
+        listProduct[index].color = color;
+        showList();
+    }
+    function remove(index){
+        listProduct.splice(index, 1); // Remove the product at the given index
+        showList();
+    }
+
+
+</script>
+
+</body>
+</html>
